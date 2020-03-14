@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const hbs = require('express-handlebars');
+const db = require('./config/database')
 
 app.engine("hbs", hbs({
     extname: "hbs",
