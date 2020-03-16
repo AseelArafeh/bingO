@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt-nodejs')
+
 const adminSchema = new mongoose.Schema({
     adminName: {
         type: String,
@@ -10,6 +12,12 @@ const adminSchema = new mongoose.Schema({
     }
 })
 
-let admin = mongoose.model('admin', adminSchema, 'adminsCollection')
+// for login
+adminSchema.methods.comparePasswords = (password, hash) => {
+    return bcrypt.compareSync(password,hash);
+};
 
-module.exports = admin
+
+let admin = mongoose.model('admin', adminSchema, 'adminsCollection');
+
+module.exports = admin;
