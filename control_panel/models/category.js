@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 const categorySchema = new mongoose.Schema({
     id: {
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
     title: {
         type: String,
