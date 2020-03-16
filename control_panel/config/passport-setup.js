@@ -14,3 +14,32 @@ passport.serializeUser(function(admin, done) {
     });
   });
 
+//login strategy
+
+passport.use('local.login', new localStrategy({
+  usernameField : 'adminName',
+  passwordField: 'password',
+  passReqToCallback: true
+}, (req,username,password, done)=> {
+
+  //find admin
+  admin.findOne({adminName: username}, (err,admin)=> {
+
+      if (err) {
+          return done(null, false, req.flash('error', 'Something wrong happened'))
+      } 
+      if(!admin) {
+          return done(null, false, req.flash('error', 'admin was not found'))
+      }
+      if (admin) {
+          if (admin.comparePasswords(password, admin.password)) {
+
+              return done(null,admin, req.flash('success', ' welcome back'))
+
+          } else {
+              return done(null,false, req.flash('error', ' password is wrong'))
+
+          }
+      }
+  })
+}))
