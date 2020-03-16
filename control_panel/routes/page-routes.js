@@ -21,14 +21,6 @@ router.get('/items', (req,res)=> {
     res.render('pages/items');
 });
 
-router.get('/login', (req,res)=> {
-    res.render('pages/login');
-});
-
-router.get('/profile', (req,res)=> {
-    res.render('pages/profile');
-});
-
 router.get('/users', (req, res)=> {
     res.render('pages/users');
 });
