@@ -9,6 +9,7 @@ router.get('/login', (req,res)=> {
 
 // login post request 
 router.post('/login', (req,res)=> {
+    console.log(req.body)
     res.json('login in admin ... ')
 })
 

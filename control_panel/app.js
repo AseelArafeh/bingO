@@ -3,6 +3,9 @@ const app = express();
 const hbs = require('express-handlebars');
 const db = require('./config/database')
 
+// bring static
+app.use(express.static('node_modules'))
+
 app.engine("hbs", hbs({
     extname: "hbs",
     defaultLayout: "mainlayout",
