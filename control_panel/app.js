@@ -36,6 +36,12 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+//store admin object to use anywhere
+app.get('*', (req,res,next)=> {
+    res.locals.admin = req.admin || null
+    next()
+})
+
 app.get('/', (req,res)=> {
     res.render('pages/home');
 });
