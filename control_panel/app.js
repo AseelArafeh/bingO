@@ -30,8 +30,12 @@ app.use(session({
     saveUninitialized: false,
     cookie: {maxAge: 60000 * 15} // 15 minutes
 }))
-app.use(flash())
+app.use(flash());
  
+// bring passport 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get('/', (req,res)=> {
     res.render('pages/home');
 });
