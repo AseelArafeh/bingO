@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
 autoIncrement.initialize(connection);
@@ -45,9 +45,9 @@ catigorySchema.methods.insertNewCategory = (title) => {
 
 let category = mongoose.model('category', catigorySchema, 'categoriesCollection')
 
-catigorySchema.methods.removeCategory = (dCategory) => {
-    category.deleteOne({ id: dCategory.id });
-    dCategory.save(function(err) {
+catigorySchema.methods.removeCategory = (self) => {
+    category.deleteOne({ id: self.id });
+    self.save(function(err) {
         if (err) {
             console.error(err);
             return;
@@ -55,9 +55,15 @@ catigorySchema.methods.removeCategory = (dCategory) => {
     });
 }
 
-catigorySchema.methods.updateCategoryTitle = (uCategory, newTitle) => {
-    let query = { id: uCategory.id };
-    category.findOneAndUpdate(query, { title = newTitle }, options, callback)
+catigorySchema.methods.updateCategoryTitle = (self, newTitle) => {
+    self.title = newTitle;
+    self.save(function(err) {
+        if (err) {
+            console.error(err);
+            return 1;
+        }
+        return 0;
+    });
 }
 
-module.exports = category
+module.exports = category;
