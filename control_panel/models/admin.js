@@ -12,6 +12,10 @@ const adminSchema = new mongoose.Schema({
     }
 })
 
+// for adding admin
+adminSchema.methods.hashPassword = (password) => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+};
 // for login
 adminSchema.methods.comparePasswords = (password, hash) => {
     return bcrypt.compareSync(password,hash);
