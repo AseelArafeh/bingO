@@ -6,10 +6,11 @@ const db = require('./config/database')
 app.engine("hbs", hbs({
     extname: "hbs",
     defaultLayout: "mainlayout",
-    layoutDir: __dirname + "/views/layouts/"
+    layoutDir: __dirname + "/views/layouts"
 }));
 app.set('view engine', 'hbs');
- 
+app.use(express.static('assets'));
+
 app.get('/', (req,res)=> {
     res.render('pages/home');
 });
