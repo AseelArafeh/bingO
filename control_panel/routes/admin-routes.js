@@ -13,7 +13,7 @@ router.get('/login', (req,res)=> {
 // login post request 
 router.post('/login',
     passport.authenticate('local.login', {
-        successRedirect: '/admin/profile',
+        successRedirect: '/pages/home',
         failureRedirect: '/admin/login',
         failureFlash: true })
     );
