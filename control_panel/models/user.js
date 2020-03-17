@@ -1,5 +1,6 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt-nodejs')
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const userSchema = new mongoose.Schema({
     id: {
@@ -24,16 +25,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-})
+});
+
+userSchema.plugin(mongoosePaginate);
 
 userSchema.methods.hashPassword = (password) => {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 }
 
 userSchema.methods.comparePasswords = (password, hash) => {
-    return bcrypt.compareSync(password, hash)
+    return bcrypt.compareSync(password, hash);
 }
 
-let user = mongoose.model('user', userSchema, 'usersCollection')
+let user = mongoose.model('user', userSchema, 'usersCollection');
 
-module.exports = user
+module.exports = user;
