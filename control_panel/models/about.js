@@ -54,6 +54,6 @@ aboutSchema.methods.updateAbout = (self, newTitle, newDescription, newDate) => {
     self.updateAboutDate(self, newDate);
 }
 
-let about = mongoose.model('about', aboutSchema, 'aboutsCollection')
+let about = mongoose.model('about', aboutSchema, 'aboutsCollection');
 
 module.exports = about;
