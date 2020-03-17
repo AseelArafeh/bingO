@@ -3,6 +3,12 @@ const router = express.Router()
 const admin = require('../models/admin')
 const passport = require('passport')
 
+// middleware to check if admin is logged in
+isAuthenticated = (req,res,next) => {
+    if (req.isAuthenticated()) return next()
+    res.redirect('/admin/login')
+}
+
 //  login admin view 
 router.get('/login', (req,res)=> {
     res.render('admin/login', {
@@ -20,7 +26,7 @@ router.post('/login',
 
 
 // profile 
-router.get('/profile', (req,res)=> {
+router.get('/profile', isAuthenticated, (req,res)=> {
     res.render('admin/profile', {
         success: req.flash('success')
     })
@@ -28,7 +34,8 @@ router.get('/profile', (req,res)=> {
 
 // logout admin
 router.get('/logout', (req,res)=> {
-    res.json('logout admin')
+    req.logout();
+    res.redirect('/admin/login');
 })
 
 module.exports = router
