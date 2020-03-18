@@ -1,0 +1,137 @@
+$mainColor:#CF011B;
+$secondaryColor:#4B4C50;
+
+body{
+
+    width: 100%;
+    height: 100%;
+    background: url("img/background.png");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    background-attachment: fixed;
+
+}
+
+nav{
+
+    background-color: $mainColor !important;
+}
+
+.navbar{
+
+    padding: 5px 10px ;
+}
+
+.nav-item{
+ 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.dropdown{
+
+    position: relative;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: $mainColor !important;
+
+}
+
+.dropdown-menu{
+
+    background-color: white;
+}
+
+.open-menu{
+
+    width: 3%;
+    margin-right: 5px;
+}
+
+.btn-danger{
+
+    border: none ;
+    background-color: $mainColor ;
+    border: $mainColor;
+
+    &:hover{
+        background-color: $mainColor;
+    }
+}
+
+#navbarCollapse{
+
+    text-align: center;
+}
+
+#logo{
+
+    width: 70%;
+    object-fit: fill;
+
+}
+
+#open-menu{
+
+    width: 100%;
+    object-fit: fill;
+}
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color:$secondaryColor;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .profile{
+
+    text-align: center;
+  }
+
+  #admin-photo{
+
+    width: 80%;
+  }
+
+  #admin-name{
+
+    padding: 10px 0;
+  }
