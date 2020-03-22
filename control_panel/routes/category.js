@@ -86,7 +86,7 @@ router.get('/categories/page/:id', isAuthenticated, (req, res, next) => {
         limit: itmePPage,
     };
 
-    User.paginate({}, options, function(err, result) {
+    Category.paginate({}, options, function(err, result) {
         if (err) {
             console.error(err);
             return;
