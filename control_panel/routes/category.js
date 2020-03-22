@@ -3,6 +3,7 @@ let router = express.Router();
 
 let mongoose = require('./../config/database');
 let Category = require('./../models/category');
+let Item = require("./../models/item");
 
 const itmePPage = 10;
 
@@ -53,7 +54,12 @@ router.get('/categories/removeCategory:id', isAuthenticated, (req, res, next) =>
         if (err) {
             return console.error(err);
         }
-        res.redirect('/categories');
+        Item.remove({ categoryId: idCategory }, (err) => {
+            if (err) {
+                return console.error(err);
+            }
+            res.redirect('/categories');
+        });
     });
 });
 
@@ -88,7 +94,5 @@ router.get('/categories/page/:id', isAuthenticated, (req, res, next) => {
         res.render('pages/categories', { categories: result.docs });
     });
 });
-
-module.exports = router;
 
 module.exports = router;
