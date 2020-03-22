@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const itemSchema = new mongoose.Schema({
     id: {
@@ -20,6 +21,8 @@ const itemSchema = new mongoose.Schema({
         required: ture
     }
 });
+
+itemSchema.plugin(mongoosePaginate);
 
 itemSchema.plugin(autoIncrement.plugin, {
     model: 'item',

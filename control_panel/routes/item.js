@@ -4,6 +4,8 @@ let router = express.Router();
 let mongoose = require('./../config/database');
 let Item = require('./../models/item');
 
+const itemPPage = 10;
+
 // middleware to check if admin is logged in
 isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -59,7 +61,6 @@ router.get('/items/removeItem:id', isAuthenticated, (req, res, next) => {
     });
 });
 
-
 //modifire for exist items.
 router.get('/items/modifier/:id', isAuthenticated, (req, res, next) => {
 
@@ -72,6 +73,24 @@ router.get('/items/modifier/:id', isAuthenticated, (req, res, next) => {
         }
         res.render('itmeForm', { item: item });
         return 0;
+    });
+});
+
+router.get('/items/page/:id', (req, res, next) => {
+
+    let idPage = req.params.id;
+
+    const options = {
+        page: idPage,
+        limit: itemPPage,
+    };
+
+    Item.paginate({}, options, function(err, result) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        res.render('pages/items', { items: result.docs });
     });
 });
 
