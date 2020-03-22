@@ -12,6 +12,7 @@ isAuthenticated = (req, res, next) => {
     res.redirect('/admin/login');
 }
 
+// create new item or update already exist item.
 router.post('/items/createNewItemOrUpdate', isAuthenticated, (req, res, next) => {
 
     if (req.body.id === "") {
@@ -45,6 +46,7 @@ router.post('/items/createNewItemOrUpdate', isAuthenticated, (req, res, next) =>
     res.redirect('/items');
 });
 
+// remove exist item by its id.
 router.get('/items/removeItem:id', isAuthenticated, (req, res, next) => {
 
     let idItem = req.params.id;
@@ -57,6 +59,8 @@ router.get('/items/removeItem:id', isAuthenticated, (req, res, next) => {
     });
 });
 
+
+//modifire for exist items.
 router.get('/items/modifier/:id', isAuthenticated, (req, res, next) => {
 
     let idItme = req.params.id;
