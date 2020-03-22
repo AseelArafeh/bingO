@@ -4,7 +4,17 @@ let router = express.Router();
 let mongoose = require('./../config/database');
 let Category = require('./../models/category');
 
-router.post('/categories/createNewCategoryOrUpdate', (req, res, next) => {
+const itmePPage = 10;
+
+// middleware to check if admin is logged in
+isAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/admin/login');
+}
+
+router.post('/categories/createNewCategoryOrUpdate', isAuthenticated, (req, res, next) => {
 
     if (req.body.id === "") {
 
@@ -35,7 +45,7 @@ router.post('/categories/createNewCategoryOrUpdate', (req, res, next) => {
     res.redirect('/categories');
 });
 
-router.get('/categories/removeCategory:id', (req, res, next) => {
+router.get('/categories/removeCategory:id', isAuthenticated, (req, res, next) => {
 
     let idCategory = req.params.id;
 
@@ -47,7 +57,7 @@ router.get('/categories/removeCategory:id', (req, res, next) => {
     });
 });
 
-router.get('/categories/modifier/:id', (req, res, next) => {
+router.get('/categories/modifier/:id', isAuthenticated, (req, res, next) => {
 
     let idCategory = req.params.id;
 
@@ -60,5 +70,25 @@ router.get('/categories/modifier/:id', (req, res, next) => {
         return 0;
     });
 });
+
+router.get('/categories/page/:id', isAuthenticated, (req, res, next) => {
+
+    let idPage = req.params.id;
+
+    const options = {
+        page: idPage,
+        limit: itmePPage,
+    };
+
+    User.paginate({}, options, function(err, result) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        res.render('pages/categories', { categories: result.docs });
+    });
+});
+
+module.exports = router;
 
 module.exports = router;

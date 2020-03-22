@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 autoIncrement.initialize(connection);
 
@@ -13,7 +14,9 @@ const categorySchema = new mongoose.Schema({
         type: String,
         required: true
     }
-})
+});
+
+categorySchema.plugin(mongoosePaginate);
 
 categorySchema.plugin(autoIncrement.plugin, {
     model: 'category',
@@ -22,6 +25,6 @@ categorySchema.plugin(autoIncrement.plugin, {
     increment: 1
 });
 
-let category = mongoose.model('category', catigorySchema, 'categoriesCollection')
+let category = mongoose.model('category', categorySchema, 'categoriesCollection')
 
 module.exports = category;
