@@ -4,7 +4,15 @@ let router = express.Router();
 let mongoose = require('./../config/database');
 let Item = require('./../models/item');
 
-router.post('/items/createNewItemOrUpdate', (req, res, next) => {
+// middleware to check if admin is logged in
+isAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/admin/login');
+}
+
+router.post('/items/createNewItemOrUpdate', isAuthenticated, (req, res, next) => {
 
     if (req.body.id === "") {
 
@@ -37,7 +45,7 @@ router.post('/items/createNewItemOrUpdate', (req, res, next) => {
     res.redirect('/items');
 });
 
-router.get('/items/removeItem:id', (req, res, next) => {
+router.get('/items/removeItem:id', isAuthenticated, (req, res, next) => {
 
     let idItem = req.params.id;
 
@@ -49,7 +57,7 @@ router.get('/items/removeItem:id', (req, res, next) => {
     });
 });
 
-router.get('/items/modifier/:id', (req, res, next) => {
+router.get('/items/modifier/:id', isAuthenticated, (req, res, next) => {
 
     let idItme = req.params.id;
 
