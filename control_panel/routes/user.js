@@ -4,13 +4,23 @@ let router = express.Router();
 let mongoose = require('./../config/database');
 let User = require('./../models/user');
 
-router.get('/users/page/:id', (req, res, next) => {
+const itmePPage = 10;
+
+// middleware to check if admin is logged in
+isAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/admin/login');
+}
+
+router.get('/users/page/:id', isAuthenticated, (req, res, next) => {
 
     let idPage = req.params.id;
 
     const options = {
         page: idPage,
-        limit: 10,
+        limit: itmePPage,
     };
 
     User.paginate({}, options, function(err, result) {
